@@ -1,0 +1,844 @@
+/* Définition des polices personnalisées */
+
+@font-face
+{
+    font-family: 'BallparkWeiner';
+    src: url('../polices/ballpark.eot');
+    src: url('../polices/ballpark.eot?#iefix') format('embedded-opentype'),
+         url('../polices/ballpark.woff') format('woff'),
+         url('../polices/ballpark.ttf') format('truetype'),
+         url('../polices/ballpark.svg#BallparkWeiner') format('svg');
+    font-weight: normal;
+    font-style: normal;
+}
+
+
+body {
+	font-size: 1.6rem;
+	font-family: "Open Sans", sans-serif;
+	color: #C8C8C8;
+	background-color: #242325;
+	-webkit-font-smoothing: antialiased;
+	-moz-osx-font-smoothing: grayscale;
+  
+}
+legend{
+	color: orange;
+}
+
+h1{
+	font-family: BallparkWeiner;
+}
+h5{
+	margin-top: 200px;
+	font-family: BallparkWeiner;
+	font-size: 10rem;
+	color: #e94b35;
+}
+h5:hover{
+	color: #0074D9;
+}
+p span{
+	font-size: 2.5rem;
+	font-family: BallparkWeiner;
+}
+
+
+/* -------------------------------- 
+
+Form
+
+-------------------------------- */
+
+.cd-form {
+	width: 90%;
+	max-width: 600px;
+	margin: 4em auto;
+}
+.cd-form::after {
+	clear: both;
+	content: "";
+	display: table;
+}
+.cd-form fieldset {
+	margin: 24px 0;
+}
+.cd-form legend {
+	padding-bottom: 10px;
+	margin-bottom: 20px;
+	font-size: 2rem;
+	border-bottom: 1px solid #ecf0f1;
+}
+.cd-form div {
+  /* form element wrapper */
+  position: relative;
+  margin: 20px 0;
+}
+.cd-form h4, .cd-form .cd-label {
+  font-size: 1.3rem;
+  color: white;
+  margin-bottom: 10px;
+  box-shadow:1px 1px 1px #D83F3D;
+}
+.cd-form .cd-label {
+  display: block;
+}
+.cd-form input, .cd-form textarea, .cd-form select, .cd-form label {
+  font-family: "Open Sans", sans-serif;
+  font-size: 1.6rem;
+  color: white;
+}
+.cd-form input[type="text"],
+.cd-form input[type="email"],
+.cd-form input[type="password"],
+.cd-form input[type="date"],
+.cd-form textarea,
+.cd-form select,
+.cd-form legend {
+  display: block;
+  width: 100%;
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  -ms-appearance: none;
+  -o-appearance: none;
+  appearance: none;
+}
+.cd-form input[type="text"],
+.cd-form input[type="email"],
+.cd-form input[type="password"],
+.cd-form input[type="date"],
+.cd-form textarea,
+.cd-form select {
+  /* general style for input elements */
+  padding: 12px;
+  border: 1px solid #cfd9db;
+  background-color: #ffffff;
+  border-radius: .25em;
+  box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.08);
+}
+.cd-form input[type="text"]:focus,
+.cd-form input[type="email"]:focus,
+.cd-form input[type="password"]:focus,
+.cd-form input[type="date"]:focus,
+.cd-form textarea:focus,
+.cd-form select:focus {
+  outline: none;
+  border-color: #2c97de;
+  box-shadow: 0 0 5px rgba(44, 151, 222, 0.2);
+}
+.cd-form .cd-select {
+  /* select element wapper */
+  position: relative;
+}
+.cd-form .cd-select::after {
+  /* arrow icon for select element */
+  content: '';
+  position: absolute;
+  z-index: 1;
+  right: 16px;
+  top: 50%;
+  margin-top: -8px;
+  display: block;
+  width: 16px;
+  height: 16px;
+  background: url("../img/cd-icon-arrow.svg") no-repeat center center;
+  pointer-events: none;
+}
+.cd-form select {
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.08);
+  cursor: pointer;
+}
+.cd-form select::-ms-expand {
+  display: none;
+}
+.cd-form .cd-form-list {
+  margin-top: 16px;
+}
+.cd-form .cd-form-list::after {
+  clear: both;
+  content: "";
+  display: table;
+}
+.cd-form .cd-form-list li {
+  /* wrapper for radio and checkbox input types */
+  display: inline-block;
+  position: relative;
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
+  margin: 0 26px 16px 0;
+  float: left;
+}
+.cd-form input[type=radio],
+.cd-form input[type=checkbox] {
+  /* hide original check and radio buttons */
+  position: absolute;
+  left: 0;
+  top: 50%;
+  -webkit-transform: translateY(-50%);
+  -moz-transform: translateY(-50%);
+  -ms-transform: translateY(-50%);
+  -o-transform: translateY(-50%);
+  transform: translateY(-50%);
+  margin: 0;
+  padding: 0;
+  opacity: 0;
+  z-index: 2;
+}
+.cd-form input[type="radio"] + label,
+.cd-form input[type="checkbox"] + label {
+  padding-left: 24px;
+}
+.cd-form input[type="radio"] + label::before,
+.cd-form input[type="radio"] + label::after,
+.cd-form input[type="checkbox"] + label::before,
+.cd-form input[type="checkbox"] + label::after {
+  /* custom radio and check boxes */
+  content: '';
+  display: block;
+  position: absolute;
+  left: 0;
+  top: 50%;
+  margin-top: -8px;
+  width: 16px;
+  height: 16px;
+}
+.cd-form input[type="radio"] + label::before,
+.cd-form input[type="checkbox"] + label::before {
+  border: 1px solid #cfd9db;
+  background: #ffffff;
+  box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.08);
+}
+.cd-form input[type="radio"] + label::before,
+.cd-form input[type="radio"] + label::after {
+  border-radius: 50%;
+}
+.cd-form input[type="checkbox"] + label::before,
+.cd-form input[type="checkbox"] + label::after {
+  border-radius: .25em;
+}
+.cd-form input[type="radio"] + label::after,
+.cd-form input[type="checkbox"] + label::after {
+  background-color: #2c97de;
+  background-position: center center;
+  background-repeat: no-repeat;
+  box-shadow: 0 0 5px rgba(44, 151, 222, 0.4);
+  display: none;
+}
+.cd-form input[type="radio"] + label::after {
+  /* custom image for radio button */
+  background-image: url("../img/cd-icon-radio.svg");
+}
+.cd-form input[type="checkbox"] + label::after {
+  /* custom image for checkbox */
+  background-image: url("../img/cd-icon-check.svg");
+}
+.cd-form input[type="radio"]:focus + label::before,
+.cd-form input[type="checkbox"]:focus + label::before {
+  /* add focus effect for radio and check buttons */
+  box-shadow: 0 0 5px rgba(44, 151, 222, 0.6);
+}
+.cd-form input[type="radio"]:checked + label::after,
+.cd-form input[type="checkbox"]:checked + label::after {
+  display: block;
+}
+.cd-form input[type="radio"]:checked + label::before,
+.cd-form input[type="radio"]:checked + label::after,
+.cd-form input[type="checkbox"]:checked + label::before,
+.cd-form input[type="checkbox"]:checked + label::after {
+  -webkit-animation: cd-bounce 0.3s;
+  -moz-animation: cd-bounce 0.3s;
+  animation: cd-bounce 0.3s;
+}
+.cd-form textarea {
+  min-height: 200px;
+  resize: vertical;
+  overflow: auto;
+}
+.cd-form input[type="submit"], #form_save {
+  /* button style */
+  border: none;
+  background: #2c97de;
+  border-radius: .25em;
+  padding: 16px 20px;
+  color: #ffffff;
+  font-weight: bold;
+  float: right;
+  cursor: pointer;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  -ms-appearance: none;
+  -o-appearance: none;
+  appearance: none;
+}
+.no-touch .cd-form input[type="submit"]:hover {
+  background: #42a2e1;
+}
+.cd-form input[type="submit"]:focus {
+  outline: none;
+  background: #2b3e51;
+}
+.cd-form input[type="submit"]:active {
+  -webkit-transform: scale(0.9);
+  -moz-transform: scale(0.9);
+  -ms-transform: scale(0.9);
+  -o-transform: scale(0.9);
+  transform: scale(0.9);
+}
+.cd-form input[type="submit"] {
+  /* button style */
+  border: none;
+  background: #2c97de;
+  border-radius: .25em;
+  padding: 16px 20px;
+  color: #ffffff;
+  font-weight: bold;
+  float: right;
+  cursor: pointer;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  -ms-appearance: none;
+  -o-appearance: none;
+  appearance: none;
+}
+.no-touch .cd-form input[type="reset"]:hover {
+  background: #42a2e1;
+}
+.cd-form input[type="reset"]:focus {
+  outline: none;
+  background: #2b3e51;
+}
+.cd-form input[type="reset"]:active {
+  -webkit-transform: scale(0.9);
+  -moz-transform: scale(0.9);
+  -ms-transform: scale(0.9);
+  -o-transform: scale(0.9);
+  transform: scale(0.9);
+}
+.cd-form input[type="reset"] {
+  /* button style */
+  border: none;
+  background: #2c97de;
+  border-radius: .25em;
+  padding: 16px 20px;
+  color: #ffffff;
+  font-weight: bold;
+  float: right;
+  cursor: pointer;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  -ms-appearance: none;
+  -o-appearance: none;
+  appearance: none;
+}
+
+.cd-form [required] {
+  background: url("../img/cd-required.svg") no-repeat top right;
+}
+.cd-form .error-message p {
+  background: #e94b35;
+  color: #ffffff;
+  font-size: 1.4rem;
+  text-align: center;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  border-radius: .25em;
+  padding: 16px;
+}
+.cd-form .error {
+  border-color: #e94b35 !important;
+}
+@media only screen and (min-width: 600px) {
+  .cd-form div {
+    /* form element wrapper */
+    margin: 32px 0;
+  }
+  .cd-form legend + div {
+    /* reduce margin-top for first form element after the legend */
+    margin-top: 20px;
+  }
+  .cd-form h4, .cd-form .cd-label {
+    font-size: 1.4rem;
+    margin-bottom: 10px;
+  }
+  .cd-form input[type="text"],
+  .cd-form input[type="email"],
+  .cd-form input[type="password"],
+  .cd-form input[type="date"],
+  .cd-form textarea,
+  .cd-form select {
+    padding: 16px;
+  }
+}
+
+@-webkit-keyframes cd-bounce {
+  0%, 100% {
+    -webkit-transform: scale(1);
+  }
+  50% {
+    -webkit-transform: scale(0.8);
+  }
+}
+@-moz-keyframes cd-bounce {
+  0%, 100% {
+    -moz-transform: scale(1);
+  }
+  50% {
+    -moz-transform: scale(0.8);
+  }
+}
+@keyframes cd-bounce {
+  0%, 100% {
+    -webkit-transform: scale(1);
+    -moz-transform: scale(1);
+    -ms-transform: scale(1);
+    -o-transform: scale(1);
+    transform: scale(1);
+  }
+  50% {
+    -webkit-transform: scale(0.8);
+    -moz-transform: scale(0.8);
+    -ms-transform: scale(0.8);
+    -o-transform: scale(0.8);
+    transform: scale(0.8);
+  }
+}
+/* -------------------------------- 
+
+Custom icons
+
+-------------------------------- */
+.cd-form .icon input, .cd-form .icon select, .cd-form .icon textarea {
+  padding-left: 54px !important;
+}
+.cd-form .user {
+  background: url("../img/cd-icon-user.svg") no-repeat 16px center;
+}
+.cd-form [required].user {
+  background: url("../img/cd-icon-user.svg") no-repeat 16px center, url("../img/cd-required.svg") no-repeat top right;
+}
+.cd-form .company {
+  background: url("../img/cd-icon-company.svg") no-repeat 16px center;
+}
+.cd-form [required].company {
+  background: url("../img/cd-icon-company.svg") no-repeat 16px center, url("../img/cd-required.svg") no-repeat top right;
+}
+.cd-form .email {
+  background: url("../img/cd-icon-email.svg") no-repeat 16px center;
+}
+.cd-form [required].email {
+  background: url("../img/cd-icon-email.svg") no-repeat 16px center, url("../img/cd-required.svg") no-repeat top right;
+}
+.cd-form .password {
+  background: url("../img/cd-icon-message.svg") no-repeat 16px 16px;
+}
+.cd-form [required].password {
+  background: url("../img/cd-icon-message.svg") no-repeat 16px 16px, url("../img/cd-required.svg") no-repeat top right;
+}
+.cd-form .date{
+  background: url("../img/cd-icon-budget.svg") no-repeat 16px 16px;
+}
+.cd-form [required].date {
+  background: url("../img/cd-icon-budget.svg") no-repeat 16px 16px, url("../img/cd-required.svg") no-repeat top right;
+}
+.cd-form .budget{
+  background: url("../img/cd-icon-budget.svg") no-repeat 16px 16px;
+}
+.cd-form [required].budget {
+  background: url("../img/cd-icon-budget.svg") no-repeat 16px 16px, url("../img/cd-required.svg") no-repeat top right;
+}
+
+/* -------------------------------- 
+
+FLoating labels 
+
+-------------------------------- */
+.js .floating-labels div {
+  margin: 28px 0;
+}
+.js .floating-labels .cd-label {
+  position: absolute;
+  top: 16px;
+  left: 16px;
+  font-size: 1.6rem;
+  cursor: text;
+  -webkit-transition: top 0.2s, left 0.2s, font-size 0.2s;
+  -moz-transition: top 0.2s, left 0.2s, font-size 0.2s;
+  transition: top 0.2s, left 0.2s, font-size 0.2s;
+}
+.js .floating-labels .icon .cd-label {
+  left: 56px;
+}
+.js .floating-labels .cd-label.float {
+  /* move label out the input field */
+  font-size: 1.2rem;
+  top: -16px;
+  left: 0 !important;
+}
+.js .input-file-container {
+  position: relative;
+}
+.js .input-file-trigger {
+  display: block;
+  padding: 14px 45px;
+  background: #0074D9;
+  color: #fff;
+  font-size: 1em;
+  transition: all .4s;
+  cursor: pointer;
+}
+.js .input-file:hover + .input-file-trigger,
+.js .input-file:focus + .input-file-trigger,
+.js .input-file-trigger:hover,
+.js .input-file-trigger:focus {
+  background: ##0074D9;
+  color: #39D2B4;
+}
+@media only screen and (min-width: 600px) {
+  .js .floating-labels legend + div {
+    /* reduce margin-top for first form element after the legend */
+    margin-top: 16px;
+  }
+  .js .floating-labels .cd-label {
+    top: 20px;
+  }
+}
+/* -------------------------------- 
+
+code css Personnage
+
+-------------------------------- */
+.joueur{
+	display: inline-block;
+	width: 500px;
+	border-color: #111111;
+	border-radius: 10px;
+	margin-bottom: 3px:
+}
+.allblock{
+	display:inline-block;
+	border-style: solid;
+    border-width: 3px;
+	border-color: #111111;
+	border-radius: 10px;
+	margin-right: 15px;
+	margin-bottom: 15px;
+	box-shadow: 8px 8px 8px #111111;
+}
+.allblock:hover{
+	background: #AAAAAA;
+}
+
+
+.player {
+    float: left;
+    margin-top: 10px;
+}
+
+.player p{
+	font-size:2rem;
+}
+
+.img_list {
+    float: left;
+    margin-right: 40px;
+	margin-left: 10px;
+	margin-top: 10px;
+}
+
+/** Pour afficher un message reussi depuis un URL*/
+.resultat-succes {
+  background: green;
+  color: #ffffff;
+  font-size: 1.4rem;
+  text-align: center;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  border-radius: .25em;
+  padding: 16px;
+  width:450px;
+  margin-bottom:10px;
+}
+/** Pour afficher un message d'erreur depuis un URL*/
+.resultat-fail {
+  background: #e94b35;
+  color: #ffffff;
+  font-size: 1.4rem;
+  text-align: center;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  border-radius: .25em;
+  padding: 16px;
+  width:450px;
+  margin-bottom:10px;
+}
+
+.imgSelect:hover {
+    background: #AAAAAA;
+    border-radius: 10px;
+	box-shadow: 8px 8px 8px #111111;
+}
+.croix {
+    float: right;
+    margin-top: 10px;
+    margin-right: 10px;
+}
+.imgProfil {
+    border: 3px #111111 solid;
+    border-radius: 10px;
+	box-shadow: 8px 8px 8px #111111;
+}
+
+/* -------------------------------- 
+
+code css Action
+
+-------------------------------- */
+.quete{
+	border-style: solid;
+	border-color: #111111;
+	border-radius: 10px;
+	margin-top: 10px;
+	margin-bottom: 10px;
+}
+a .quete{
+	color: black;
+	font-size: 3rem;
+	background: url("../img/rouleau.png") 0px 290px;
+}
+.nom-quete{
+	display: inline-block;
+	color:black;
+	margin-left: 20px;
+	
+}
+.nom-quete p{
+	width: 250px;
+	font-size: 1.5rem;
+}
+#warning{
+	margin-left: 40px;
+}
+.nom-quete h1{
+	display: inline-block;
+}
+.info-quete{
+	display: inline-block;
+}
+.info-quete p{
+	font-size: 1.8rem;
+}
+.recompense{
+	display: inline-block;
+	
+	margin-top: 10px;
+	margin-left: 20px;
+	margin-bottom:20px;
+}
+.recompense p{
+	display: inline-block;
+}
+.info-cible{
+	display: inline-block;
+	margin-left: 20px;
+}
+.info-cible p{
+	display: inline-block;
+}
+#action-done{
+	border-top-style: solid;
+	border-bottom-style: solid;
+}
+#global-action{
+	height: 685px;
+	float: left;
+	overflow-y: scroll;
+	border-top-style: solid;
+	border-bottom-style: solid;
+}
+#global-action::-webkit-scrollbar-track{
+	-webkit-box-shadow: inset 0 0 6px rgba(0,0,0,0.3);
+	border-radius: 10px;
+	background-color: #DDDDDD;
+}
+#global-action::-webkit-scrollbar{
+	width: 12px;
+	background-color: #242325;
+}
+#global-action::-webkit-scrollbar-thumb{
+	border-radius: 10px;
+	-webkit-box-shadow: inset 0 0 6px rgba(0,0,0,.3);
+	background-color: #555;
+}
+.map{
+	background: url("../img/map.png") -30px -8px;
+	height: 600px;
+	margin-bottom: 10px;
+}
+.roi {
+  background: #FF851B;
+  color: #ffffff;
+  font-size: 1.4rem;
+  text-align: center;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  border-radius: .25em;
+  padding: 16px;
+  width:450px;
+  margin-bottom:10px;
+}
+/* -------------------------------- 
+
+code css classement
+
+-------------------------------- */
+.classement {
+    border-style: solid;
+    border-radius: 10px;
+    background: #AAAAAA;
+    margin-bottom: 10px;
+    color: #111111;
+}
+.classement a{
+	color: #111111;
+}
+.first a{
+	color: #111111;
+}
+.second a{
+	color: #111111;
+}
+.third a{
+	color: #111111;
+}
+.myPerso a{
+	color: #111111;
+}
+.first {
+    border-style: solid;
+    border-radius: 10px;
+    background: #FF4136;
+    margin-bottom: 10px;
+    color: #111111;
+}
+
+.second {
+    border-style: solid;
+    border-radius: 10px;
+    background: #FF851B;
+    margin-bottom: 10px;
+    color: #111111;
+}
+
+.third {
+    border-style: solid;
+    border-radius: 10px;
+    background: #FFDC00;
+    margin-bottom: 10px;
+    color: #111111;
+}
+
+.myPerso {
+    border-style: solid;
+    border-radius: 10px;
+    background: #2ECC40;
+    margin-bottom: 10px;
+    color: #111111;
+}
+/* -------------------------------- 
+
+code css boite_mail
+
+-------------------------------- */
+.block_mess {
+	border-style: solid;
+    border-width: 3px;
+	border-color: #111111;
+	border-radius: 10px;
+    margin-bottom: 10px;
+    padding-top: 10px;
+}
+
+#nonlu {
+	border-style: solid;
+    border-width: 3px;
+	border-color: #111111;
+	border-radius: 10px;
+    margin-bottom: 10px;
+    padding-top: 10px;
+}
+
+.block_mess a:hover {
+    color: #111111;
+}
+
+.block_mess:hover {
+    background: #AAAAAA;
+	box-shadow: 8px 8px 8px #111111;
+}
+
+.affiche_message {
+	border-style: solid;
+    border-width: 3px;
+	border-color: #111111;
+	border-radius: 10px;
+}
+
+.affiche_message h4 {
+	text-align: left;
+    margin-left: 10px;
+}
+
+.affiche_message .corp_mess {
+	text-align: left;
+    margin-left: 10px;
+}
+
+.supp_mess {
+    position: relative;
+    top: 50%;
+}
+
+/* -------------------------------- 
+
+code css Profil
+
+-------------------------------- */
+#profil_joueur, #profil_perso {
+    display: inline-block;
+	border-style: solid;
+    border-width: 5px;
+	border-color: #111111;
+	border-radius: 20px;
+	box-shadow: 10px 10px 10px #111111;
+    padding: 10px;
+}
+#profil_perso img {
+    display: inline-block;
+}
+#profil_perso div p {
+    display: inline-block;
+}
+#profil_perso div {
+    display: inline-block;
+}
+
+/* -------------------------------- 
+
+code css Footer
+
+-------------------------------- */
+
+footer{
+	width:auto;
+	height: 300px;
+	background: url("../img/feu2.png");
+	margin:auto;
+}

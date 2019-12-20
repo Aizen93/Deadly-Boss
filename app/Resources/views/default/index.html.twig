@@ -1,0 +1,130 @@
+{% extends 'base.html.twig' %}
+{% block title %}Deadly Boss Mode{% endblock %}
+
+{% block stylesheets %}
+	<link href='http://fonts.googleapis.com/css?family=Open+Sans:400,300,700' rel='stylesheet' type='text/css'>
+	<link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" rel="stylesheet">
+	
+	<link rel="stylesheet" href="{{ asset('css/style.css') }}" />
+	
+	<script src="{{ asset('js/modernizr.js') }}"></script>
+	<script src="{{ asset('js/jquery-2.1.1.js') }}"></script>
+	<script src="{{ asset('js/main.js') }}"></script>	
+{% endblock %}
+
+
+{% block body %}
+	{% if (app.session.get('user')) %}
+		<center>
+			<a href = "{{ path('Perso') }}">
+			<h5>Vous êtes déjà connecté - Cliquez pour être redirigé vers la page personnages</h5>
+			</a>
+		</center>
+	{% else  %}
+	<div class="corp">
+	
+	<center>
+		<h1> Bienvenue à <span>Deadly Boss Mode</span> un jeu MMORPG en ligne sur navigateur</h1>
+		<br/>
+		<p>Vous entrez dans le royaume de <span>Liones</span>. Ici vous avez la possibilité de<p> 
+		<p>choisir entre plusieures races à jouer, vous pouvez créer autant de personnages que </p>
+		<p>vous désirez, achever des quêtes (tel que tuer des monstres ou vous mesurer à des boss)</p> 
+		<p>et gagner des ressources pour augmenter votre score.</p>
+		<hr/>
+	</center>
+	<section>
+		<div class ="row">
+		<div class="col-sm-6">
+            <form class="cd-form floating-labels" method="post" action="connexion" id="bordure">
+				 
+				<p>Vous êtes déjà membre? Pas besoin de vous inscrire, vos personnages vous attendent &#x1F604;</p>
+				<p>Connectez-vous !</p>
+				<fieldset>
+					<center><legend>Connexion</legend></center>
+					{% if (app.request.get('error')) %}
+					<div class="error-message">
+						<p>{{ app.request.get('error') }}</p>
+					</div>
+					{% endif %}
+					
+					<div class="icon">
+						<label class="cd-label" for="cd-email">Email</label>
+						<input class="email error" type="email" name="mail" id="cd-email" required>
+					</div>
+			
+					<div class="icon">
+						<label class="cd-label" for="cd-email">Password</label>
+						<input class="password" type="password" name="pwd" id="cd-email" required>
+					</div>
+					
+					<div>
+						<input type="submit" name="connexion" value="connexion">
+						<input type="reset" value="reset">
+					</div>
+				</fieldset>
+			</form>
+		</div>
+				
+		<div class="col-sm-6">
+			<form class="cd-form floating-labels" method="post" action="inscription" id="bordure" enctype="multipart/form-data">
+				<p>Les champs avec un * sont obligatoire</p>
+				<p>Remplissez le formulaire puis valider.</p>
+				<fieldset>
+					<center><legend>Inscription</legend></center>
+					{% if (app.request.get('error2')) %}
+					<div class="error-message">
+						<p>{{ app.request.get('error2') }}</p>
+					</div>
+					{% endif %}
+					<div class="icon">
+						<label class="cd-label" for="cd-name">Nom</label>
+						<input class="user" type="text" name="nom" id="cd-name" required>
+					</div>
+					<div class="icon">
+						<label class="cd-label" for="cd-name">Prénom</label>
+						<input class="user" type="text" name="prenom" id="cd-name" required>
+					</div> 
+
+					<div class="icon">
+						<label class="cd-label" for="cd-email"></label>
+						<input class="date" type='date' name='dateN' value='J-M-A ou J/M/A' id="cd-compagny" required>
+					</div>
+	
+					<div class="icon">
+						<label class="cd-label" for="cd-email">Email</label>
+						<input class="email error" type="email" name="mail" id="cd-email" required>
+					</div>
+					<div class="icon">
+						<label class="cd-label" for="cd-email">Confirmer Email</label>
+						<input class="email error" type="email" name="mail2" id="cd-email" required>
+					</div>
+					<div class="icon">
+						<label class="cd-label" for="cd-email">Password</label>
+						<input class="password" type="password" name="pwd" id="cd-email" required>
+					</div>
+					<div class="icon">
+						<label class="cd-label" for="cd-email">Confirmer Password</label>
+						<input class="password" type="password" name="pwd2" id="cd-email" required>
+					</div>
+					<div class="input-file-container">
+						<label for="my-file" class="input-file-trigger">Choisir un Avatar...</label>
+						<input class="input-file" id="my-file" name="avatar" type="file">
+					
+					<p class="file-return"></p>
+					</div>
+					<div>
+						<input type="submit" name="inscription" value="inscription">
+						<input type="reset" value="reset">
+					</div>
+				</fieldset>
+				
+			</form>
+		</div>
+		</div>
+	</section>
+	
+	</div>
+	{% endif %}
+{% endblock %}
+
+

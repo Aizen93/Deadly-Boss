@@ -1,0 +1,236 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}
+    Actions
+{% endblock %}
+
+{% block stylesheets %}
+    <link href='http://fonts.googleapis.com/css?family=Open+Sans:400,300,700' rel='stylesheet' type='text/css'>
+	<link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" rel="stylesheet">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+	
+	<link rel="stylesheet" href="{{ asset('css/style.css') }}" />
+
+    <script src="{{ asset('js/modernizr.js') }}"></script>
+	<script src="{{ asset('js/jquery-2.1.1.js') }}"></script>
+	<script src="{{ asset('js/main.js') }}"></script>
+	<script type="text/javascript">
+        function show(x, y){
+                var hauteur = (document.getElementById("map").offsetHeight)+30;
+                var largeur = (document.getElementById("map").offsetWidth)-13;
+                if (y>largeur) {
+					if(x<80){
+				    document.getElementById('image').style.display = "block";
+				    document.getElementById("image").style.position = "absolute";
+				    document.getElementById('image').style.top = 80+"px";
+				    document.getElementById('image').style.left = largeur+"px";
+					}
+					else{
+						document.getElementById('image').style.display = "block";
+						document.getElementById("image").style.position = "absolute";
+						document.getElementById('image').style.top = x+"px";
+						document.getElementById('image').style.left = largeur+"px";
+					}
+				}
+				else{
+					if(x<80){
+						document.getElementById('image').style.display = "block";
+						document.getElementById("image").style.position = "absolute";
+						document.getElementById('image').style.top = 80+"px";
+						document.getElementById('image').style.left = y+"px";
+					}
+					else{
+						document.getElementById('image').style.display = "block";
+						document.getElementById("image").style.position = "absolute";
+						document.getElementById('image').style.top = x+"px";
+						document.getElementById('image').style.left = y+"px";
+					}
+				}
+        }
+                
+                function hide(){
+                document.getElementById('image').style.display = "none";
+                }
+        </script>
+{% endblock %}
+
+{% block body %}
+	<div class="pageaction">
+	<nav class="navbar navbar-inverse">
+        <div class="container-fluid">
+            <div class="navbar-header">
+                <a href="" class="navbar-brand"><img src="img/{{ perso.classe }}.png" height=30 /></a>
+            </div>
+            <ul class="nav navbar-nav">
+                <li class="active"><a href="">{{ perso.pseudo }}</a></li>
+            </ul>
+            <p class="navbar-text"><img src="img/mana.png" height=30 />: {{ perso.mana }}</p>
+            <p class="navbar-text"><img src="img/vie.png" height=30 />: {{ perso.vie }}</p>
+            <p class="navbar-text"><img src="img/attaque.png" height=30 />: {{ perso.attaque }}</p>
+            <p class="navbar-text"><img src="img/defense.png" height=30 />: {{ perso.defense }}</p>
+            <p class="navbar-text"><img src="img/or.png" height=30 />: {{ perso.gold }}</p>
+            <p class="navbar-text"><img src="img/score.png" height=30 />: {{ perso.score }}</p>
+            <ul class="nav navbar-nav navbar-right">
+                <li class="dropdown">
+                    <a class="dropdown-toggle 
+                              {% if app.session.get('nb_message') > 0 %}
+                              btn-danger
+                              {% endif %}" data-toggle="dropdown" href="">
+					Menu<span class="caret"></span>
+					</a>
+                    <ul class="dropdown-menu">
+                        <li {% if app.session.get('nb_message') > 0 %}
+                              class="btn-danger"
+                              {% endif %}><a href="{{ path('boiteMail') }}">Boîte au lettre ({{ app.session.get('nb_message') }})</a></li>
+                        <li><a href="{{ path('classement') }}">Classement</a></li>
+                        <li><a href="{{ path('Perso') }}">Changement de personnage</a></li>
+                    </ul>
+                </li>
+                <li><a href="{{ path('disconnect') }}"><span class="glyphicon glyphicon-log-in"></span> Déconnexion</a></li>
+            </ul>
+        </div>
+    </nav>
+	{% if app.request.get('msg') %}
+	<center>
+		<div class="resultat-succes">
+			<p>{{ app.request.get('msg') }}</p>
+		</div>
+	</center>
+	{% endif %}
+    {% if app.request.get('roi') %}
+	<center>
+		<div class="roi">
+			<p>{{ app.request.get('roi') }}</p>
+		</div>
+	</center>
+	{% endif %}
+	{% if app.request.get('msg2') %}
+	<center>
+		<div class="resultat-fail">
+			<p>{{ app.request.get('msg2') }}</p>
+		</div>
+	</center>
+	{% endif %}
+	
+	<div class ="row">
+		<div class="col-sm-6" id="action-done">
+			<center><h1>Coordonnés de Quêtes</h1></center>
+			<div class="map" id="map">
+				<img id="image" style="display:none" src="img/Red_X.png" height="30px"/>
+			</div>
+		</div>
+		<div class="col-sm-6" id="global-action">
+			<center><h1>Quêtes à Prendre</h1></center>
+			{% if perso.mana == 0 or perso.defense == 0 %}
+			{% for k in quete2 %}
+			{% if k.type == "epuisé" %}
+			<a href="{{ path('Quete', {'id': perso.id, 'id_quete': k.id }) }}" onmouseover="javascript: show({{ 430 }}, {{ 445 }});" onmouseout="hide();">
+				<div class="quete">
+					<div class="nom-quete">
+						<center>
+						<h1>Titre:</h1>
+						<p><strong>{{ k.nom }}</strong></p>
+						</center>
+					</div>
+					
+					<div class="info-quete">
+						<div class="recompense">
+							<h1>Achat:</h1>
+							<p><strong><img src="img/defense.png" height=30 />:{{ k.win_defense }} |<strong></p>
+							<p><strong><img src="img/mana.png" height=30 />:{{ k.win_mana }}<strong></p>
+						</div>
+						<div class="info-cible">
+							<h1>Prix:</h1>
+							<p><strong><img src="img/or.png" height=30 />:{{ -1 * k.win_gold }}</strong></p>
+						</div>
+					</div>
+				</div>
+			</a>
+			{% endif %}
+			{% endfor %}
+			{% endif %}
+			
+			{% for k in quete %}
+			<a href="{{ path('Quete', {'id': perso.id, 'id_quete': k.id }) }}" onmouseover="javascript: show({{ random(558) }}, {{ random(950) }});" onmouseout="hide();">
+				<div class="quete">
+					<div class="nom-quete">
+						<center>
+						<h1>Titre:</h1>
+						{% if k.vie_monstre >= 2000 %}
+							<img src="img/warning.png" height="60" id="warning"/>
+						{% endif %}
+						<p><strong>{{ k.nom }}</strong></p>
+						</center>
+					</div>
+					
+					<div class="info-quete">
+						<div class="recompense">
+							<h1>Récompense:</h1>
+							<p><strong><img src="img/or.png" height=30 />:{{ k.win_gold }} |</strong></p>
+							<p><strong><img src="img/vie.png" height=30 />:{{ k.win_vie }} |<strong></p>
+							<p><strong><img src="img/attaque.png" height=30 />{{ k.win_attaque }} |<strong></p>
+							<p><strong><img src="img/defense.png" height=30 />:{{ k.win_defense }} |<strong></p>
+							<p><strong><img src="img/mana.png" height=30 />:{{ k.win_mana }} |<strong></p>
+							<p><strong><img src="img/score.png" height=30 />:{{ k.win_score }}<strong></p>
+						</div>
+						
+						<div class="info-cible">
+							<h1>Information Cible:</h1>
+							<p><img src="img/vie.png" height=30 />:{{ k.vie_monstre }}</p>
+							<p><img src="img/attaque.png" height=30 />:{{ k.attaque_monstre }}</p>
+						</div>
+					</div>
+				</div>
+			</a>
+			{%endfor %}
+			
+			<center><h1>Evènement Spéciaux:</h1></center>
+			{% if perso.score >= 320 %}
+			{% for k in quete3 %}
+			{% if k.type == "Hautlevel" %}
+			<a href="{{ path('Quete', {'id': perso.id, 'id_quete': k.id }) }}" onmouseover="javascript: show({{ random(558) }}, {{ random(950) }});" onmouseout="hide();">
+				<div class="quete">
+					<div class="nom-quete">
+						<center>
+						<h1>Titre Event:</h1>
+						{% if k.vie_monstre >= 2000 %}
+							<img src="img/warning.png" height="60" id="warning"/>
+						{% endif %}
+						<p><strong>{{ k.nom }}</strong></p>
+						</center>
+					</div>
+					<div class="info-quete">
+						<div class="recompense">
+							<h1>Récompense:</h1>
+							<p><strong><img src="img/or.png" height=30 />:{{ k.win_gold }} |</strong></p>
+							<p><strong><img src="img/vie.png" height=30 />:{{ k.win_vie }} |<strong></p>
+							<p><strong><img src="img/attaque.png" height=30 />{{ k.win_attaque }} |<strong></p>
+							<p><strong><img src="img/defense.png" height=30 />:{{ k.win_defense }} |<strong></p>
+							<p><strong><img src="img/mana.png" height=30 />:{{ k.win_mana }} |<strong></p>
+							<p><strong><img src="img/score.png" height=30 />:{{ k.win_score }}<strong></p>
+						</div>
+						
+						<div class="info-cible">
+							<h1>Information Cible:</h1>
+							<p><img src="img/vie.png" height=30 />:{{ k.vie_monstre }}</p>
+							<p><img src="img/attaque.png" height=30 />:{{ k.attaque_monstre }}</p>
+						</div>
+					</div>
+					
+				</div>
+			</a>
+			{% endif %}
+			{% endfor %}
+			{% else %}
+				<a href="#">
+					<div class="quete">
+						<center><h1>Danger de Mort:</h1></center>
+						<center><p>Vous n'avez pas le niveaux minimum pour prendre ces quêtes</p></center>
+					</div>
+				</a>
+			{% endif %}
+		</div>
+	</div>
+	</div>
+{% endblock %}

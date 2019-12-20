@@ -1,0 +1,164 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}
+    Vos personnages
+{% endblock %}
+
+{% block stylesheets %}
+    <link href='http://fonts.googleapis.com/css?family=Open+Sans:400,300,700' rel='stylesheet' type='text/css'>
+	<link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" rel="stylesheet">
+	
+	<link rel="stylesheet" href="{{ asset('css/style.css') }}" />
+
+    <script src="{{ asset('js/modernizr.js') }}"></script>
+	<script src="{{ asset('js/jquery-2.1.1.js') }}"></script>
+	<script src="{{ asset('js/main.js') }}"></script>
+
+    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+    <script type="text/javascript">
+    $(document).ready(function(){
+      var selection = "";
+
+      function selectImg(id){
+        $('.imgSelect').css('border', 'none');
+        $('.imgSelect').css('border-radius', '10px');
+        $('#'+id).css('border', '3px #111111 solid');
+        $('#'+id).css('box-shadow', '8px 8px 8px #111111');
+      }
+
+      $('.imgSelect').click(function(elem){
+        $('.imgSelect').css('box-shadow', '');
+        selection = elem.target.id;
+        selectImg(selection);
+      });
+
+      $('#race').submit(function(){
+        $('#form_choix').attr('value', selection);
+      });
+    });
+    </script>
+    <style type="text/css">
+    .imgSelect{
+      border: none;
+      margin-right: 10px;
+    }
+    </style>
+{% endblock %}
+
+{% block body %}
+{% if app.session.get('user') == null %}
+    <center>
+        <a href = "{{ path('homepage') }}">
+            <h5>Vous n'êtes pas connecté - Cliquez pour être redirigé vers la page de connexion</h5>
+        </a>
+    </center>
+{% else %}
+    <center><div class="liste_perso">
+        <nav class="navbar navbar-inverse">
+            <div class="container-fluid">
+                <div class="navbar-header">
+                    <a href="{{ path('Perso') }}" class="navbar-brand">Page Personnage</a>
+                </div>
+                <ul class="nav navbar-nav">
+                    <li class="active"><a href="{{ path('Perso') }}">{{ avatar.prenom }} {{ avatar.nom }}</a></li>
+                </ul>
+                <p class="navbar-text">Email: {{ avatar.mail }}</p>
+                <p class="navbar-text">Date de naissance: {{ avatar.birthday|date('d/m/Y') }}</p>
+                <p class="navbar-text">Nombre de personnage: {{ avatar.nb_personnage }}</p>
+                <ul class="nav navbar-nav navbar-right">
+                    <li><a href="{{ path('disconnect') }}"><span class="glyphicon glyphicon-log-in"></span> Déconnexion</a></li>
+                </ul>
+            </div>
+        </nav>
+        {% if avatar.avatar != '' %}
+            <div>
+                <img src="img_user/{{ avatar.avatar }}" height=200 class="imgProfil"/>
+            </div>
+            <hr/>
+        {% endif %}
+        <center>
+			<h2>Votre liste de personnages</h2>
+		</center>
+        <hr />
+		{% if app.request.get('msg') %}
+            <center>
+				<div class="resultat-succes">
+					<p>{{ app.request.get('msg') }}</p>
+				</div>
+			</center>
+        {% endif %}
+		{% if app.request.get('msg2') %}
+            <center>
+				<div class="resultat-fail">
+					<p>{{ app.request.get('msg2') }}</p>
+				</div>
+			</center>
+        {% endif %}
+        {% for p in perso %}
+			<div class="allblock">
+				<div class="image">
+					<a href="{{ path('delet', {'id': p.id}) }}"><img src="img/Red_X.png" height=20 class="croix"/></a>
+				</div>
+				<div class="blockk">
+					<a href="{{ path('actionPage', {'id': p.id}) }}" class="joueur">
+						<div class="img_list">
+							<img src="img/{{ p.classe }}.png" height=200 class="race"/>
+						</div>
+						<div class="player">
+							<p><strong><span>{{ p.pseudo }}</span></strong></p>
+							<p><span>{{ p.classe }}</span></p>
+							<p><img src="img/mana.png" height=30>: {{ p.mana }} - <img src="img/vie.png" height=28>: {{ p.vie }}</p>
+							<p><img src="img/attaque.png" height=28>: {{ p.attaque }} - <img src="img/defense.png" height=28>: {{ p.defense }}</p>
+							<p><img src="img/or.png" height=28>: {{ p.gold }} - <img src="img/score.png" height=28>: {{ p.score }}</p>
+						</div>
+					</a>
+				</div>
+			</div>
+        {% endfor %}
+		<div>
+			<p>A savoir: 
+				<img src="img/mana.png" height=30/> = Mana |
+				<img src="img/vie.png" height=28/> = Vie |
+				<img src="img/attaque.png" height=28/> = Attaque |
+				<img src="img/defense.png" height=28/> = Defense |
+				<img src="img/or.png" height=28/> = Or |
+				<img src="img/score.png" height=28/> = Score |
+				<img src="img/Red_X.png" height=25/> = Supprimer
+			</p>
+		</div>
+		<hr />
+    </div></center>
+	
+    <div class="new_perso">
+        <center><h2>Choisir votre nouveau personnage</h2>
+        <br/>
+		<div class="row">
+            <div class="col-sm-3">
+                <p><span>Humain</span></p>
+				<img src="img/humain.png" class="imgSelect" height=300 id="race0"/>
+            </div>
+            <div class="col-sm-3">
+				<p><span>Elfe</span></p>
+                <img src="img/elfe.png" class="imgSelect" height=300 id="race1"/>
+            </div>
+            <div class="col-sm-3">
+				<p><span>Orc</span></p>
+				<img src="img/Orc.png" class="imgSelect" height=300 id="race2"/>
+            </div>
+            <div class="col-sm-3">
+				<p><span>Dwarf</span></p>
+                <img src="img/dwarf.png" class="imgSelect" height=300 id="race3"/>
+            </div>
+        </div>
+		
+		{{ form_start(form, {'attr':{'class': 'cd-form floating-labels', 'id': 'race'}}) }}
+		<div class="icon">
+			{{ form_label(form) }}
+			{{ form_widget(form) }}
+			{{ form_end(form) }}
+		</div>
+		</center>
+	</div>
+	<br/>
+{% endif %}
+{% endblock %}

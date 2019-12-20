@@ -1,0 +1,132 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}
+    Boite aux lettres
+{% endblock %}
+
+{% block stylesheets %}
+    <link href='http://fonts.googleapis.com/css?family=Open+Sans:400,300,700' rel='stylesheet' type='text/css'>
+	<link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" rel="stylesheet">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+	
+	<link rel="stylesheet" href="{{ asset('css/style.css') }}" />
+
+    <script src="{{ asset('js/modernizr.js') }}"></script>
+	<script src="{{ asset('js/jquery-2.1.1.js') }}"></script>
+	<script src="{{ asset('js/main.js') }}"></script>
+{% endblock %}
+
+{% block body %}
+{% if app.session.get('user') == null %}
+    <center>
+        <a href = "{{ path('homepage') }}">
+            <h5>Vous n'êtes pas connecté - Cliquez pour être redirigé vers la page de connexion</h5>
+        </a>
+    </center>
+{% else %}
+    <center>
+        <nav class="navbar navbar-inverse">
+            <div class="container-fluid">
+            <div class="navbar-header">
+                <a href="{{ path('classement') }}" class="navbar-brand">Votre boîte aux lettres</a>
+            </div>
+            <ul class="nav navbar-nav">
+                <li class="active"><a href="">{{ perso.pseudo }}</a></li>
+            </ul>
+            <p class="navbar-text">Nombre de messages total: {{ liste_message|length }}</p>
+            <p class="navbar-text">Nombre de messages non-lu: {{ app.session.get('nb_message') }}</p>
+            <ul class="nav navbar-nav navbar-right">
+                <li class="dropdown">
+                    <a class="dropdown-toggle" data-toggle="dropdown" href="">Menu
+                    <span class="caret"></span></a>
+                    <ul class="dropdown-menu">
+                        <li><a href="{{ path('actionPage', {'id': perso.id} ) }}">Action</a></li>
+                        <li><a href="{{ path('classement') }}">Classement</a></li>
+                        <li><a href="{{ path('Perso') }}">Changement de personnage</a></li>
+                    </ul>
+                </li>
+                <li><a href="{{ path('disconnect') }}"><span class="glyphicon glyphicon-log-in"></span> Déconnexion</a></li>
+            </ul>
+        </div>
+        </nav>
+        {% if msg != null %}
+            <center>
+				<div class="resultat-succes">
+					<p>{{ msg }}</p>
+				</div>
+			</center>
+        {% endif %}
+        <center>
+			<h2>Liste des messages reçu</h2>
+		</center>
+        <hr />
+        <div class="row">
+            <div class="col-sm-6">
+                <div class="row">
+                    <div class="col-sm-3">
+                        <p><span>De</span></p>
+                    </div>
+                    <div class="col-sm-3">
+				        <p><span>Objet</span></p>
+                    </div>
+                    <div class="col-sm-3">
+				        <p><span>Reçu le</span></p>
+                    </div>
+                    <div class="col-sm-3">
+				        <p><span>Supprimer</span></p>
+                    </div>
+                </div>
+            </div>
+            <div class="col-sm-6">
+				<p><span>Message</span></p>
+            </div>
+        </div>
+        <hr />
+        <div class="row">
+            <div class="col-sm-6">
+                {% for m in liste_message %}
+                {% if m.lu == false %}
+                    <div class="block_mess" id="nonlu">
+                {% else %}
+                    <div class="block_mess" id="lu">
+                {% endif %}
+			             <div class="row">
+                            <a href="{{ path('lireMessage', {'id': m.id}) }}" class="list_mess">
+                                    <div class="col-sm-3">
+                                        <p>{% if m.lu == false %}
+                                            <img src="img/cd-icon-email.svg" />
+                                            {% else %}
+                                            <img src="img/cd-icon-mail-lu.png" height=28/>
+                                            {% endif %}
+                                            {{ m.pseudoDestinataire }}
+                                        </p>
+                                    </div>
+                                    <div class="col-sm-3">
+                                        <p>{{ m.objet }}</p>
+                                    </div>
+                                    <div class="col-sm-3">
+                                        <p>{{ m.dateMessage|date('d/m/Y à H:i') }}</p>
+                                    </div>
+                            </a>
+                            <div class="col-sm-3">
+                                <p><a href="{{ path('delMessage', {'id': m.id}) }}"><img src="img/Red_X.png" height=28 class="supp_mess"></a></p>
+                            </div>
+                        </div>
+                    </div>
+                {% endfor %}
+            </div>
+            <div class="col-sm-6">
+                {% if message != '' %}
+                    <div class="affiche_message">
+                        <p>Message de <strong>{{ message.pseudoDestinataire }}</strong> reçu le <strong>{{ message.dateMessage|date('d/m/Y à H:i') }}</strong></p>
+                        <h4><strong>Objet:</strong> {{ message.objet }}</h4>
+                        <h4><strong>Message:</strong></h4>
+                        <p class="corp_mess">{{ message.message }}</p>
+                    </div>
+                {% endif %}
+            </div>
+        </div>
+    </center>
+{% endif %}
+{% endblock %}

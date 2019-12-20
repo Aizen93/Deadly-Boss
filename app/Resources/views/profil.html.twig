@@ -1,0 +1,79 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}
+    Profil
+{% endblock %}
+
+{% block stylesheets %}
+    <link href='http://fonts.googleapis.com/css?family=Open+Sans:400,300,700' rel='stylesheet' type='text/css'>
+	<link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" rel="stylesheet">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+	
+	<link rel="stylesheet" href="{{ asset('css/style.css') }}" />
+
+    <script src="{{ asset('js/modernizr.js') }}"></script>
+	<script src="{{ asset('js/jquery-2.1.1.js') }}"></script>
+	<script src="{{ asset('js/main.js') }}"></script>
+{% endblock %}
+
+{% block body %}
+{% if app.session.get('user') == null %}
+    <center>
+        <a href = "{{ path('homepage') }}">
+            <h5>Vous n'êtes pas connecté - Cliquez pour être redirigé vers la page de connexion</h5>
+        </a>
+    </center>
+{% else %}
+    <center>
+        <nav class="navbar navbar-inverse">
+            <div class="container-fluid">
+            <div class="navbar-header">
+                <a href="{{ path('classement') }}" class="navbar-brand">Page de profil</a>
+            </div>
+            <ul class="nav navbar-nav">
+                <li class="active"><a href="">{{ perso.pseudo }}</a></li>
+            </ul>
+            <ul class="nav navbar-nav navbar-right">
+                <li class="dropdown">
+                    <a class="dropdown-toggle 
+                              {% if app.session.get('nb_message') > 0 %}
+                              btn-danger
+                              {% endif %}" data-toggle="dropdown" href="">Menu
+                    <span class="caret"></span></a>
+                    <ul class="dropdown-menu">
+                        <li {% if app.session.get('nb_message') > 0 %}
+                              class="btn-danger"
+                              {% endif %}><a href="{{ path('boiteMail') }}">Boîte au lettre ({{ app.session.get('nb_message') }})</a></li>
+                        <li><a href="{{ path('actionPage', {'id': perso.id} ) }}">Action</a></li>
+                        <li><a href="{{ path('classement') }}">Classement</a></li>
+                        <li><a href="{{ path('Perso') }}">Changement de personnage</a></li>
+                    </ul>
+                </li>
+                <li><a href="{{ path('disconnect') }}"><span class="glyphicon glyphicon-log-in"></span> Déconnexion</a></li>
+            </ul>
+        </div>
+        </nav>
+        <div class="row">
+            <div class="col-sm-6" id="profil_joueur">
+                {% if joueur.avatar != '' %}
+                    <p><img src="img_user/{{ joueur.avatar }}" height=200 /></p>
+                    <p>Nom: {{ joueur.nom }}</p>
+                    <p>Prénom: {{ joueur.prenom }}</p>
+                    <p>Email: {{ joueur.mail }}</p>
+                {% endif %}
+            </div>
+            <div class="col-sm-6" id="profil_perso">
+                <img src="img/{{ profil.classe }}.png" height=200/>
+                <div>
+                    <h1>Pseudo: {{ profil.pseudo }}</h1>
+                    <p><img src="img/mana.png" height=30>: {{ profil.mana }} - <img src="img/vie.png" height=28>: {{ profil.vie }}</p>
+				    <p><img src="img/attaque.png" height=28>: {{ profil.attaque }} - <img src="img/defense.png" height=28>: {{  profil.defense }}</p>
+                    <p><img src="img/or.png" height=28>: {{ profil.gold }}</p>
+                    <h1><img src="img/score.png" height=60>: {{ profil.score }}</h1>
+                </div>
+            </div>
+        </div>
+    </center>
+{% endif %}
+{% endblock %}
